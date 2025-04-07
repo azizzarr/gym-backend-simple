@@ -14,8 +14,9 @@ public class CorsConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         
-        // Allow all origins for development
-        config.addAllowedOrigin("*");
+        // Allow specific origins
+        config.addAllowedOrigin("http://localhost:4200");
+        config.addAllowedOrigin("https://gym-backend-simple-production.up.railway.app");
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
         config.setAllowCredentials(true);
