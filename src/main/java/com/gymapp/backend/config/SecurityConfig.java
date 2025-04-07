@@ -27,7 +27,10 @@ public class SecurityConfig {
                 .requestMatchers(new AntPathRequestMatcher("/api/admin/**")).hasRole("ADMIN")
                 .anyRequest().authenticated()
             )
-            .httpBasic();
+            .httpBasic()
+            .and()
+            .formLogin().disable()
+            .sessionManagement().disable();
 
         return http.build();
     }
