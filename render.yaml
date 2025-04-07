@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: gymapp-backend
+    env: java
+    buildCommand: ./mvnw clean package -DskipTests
+    startCommand: java -jar target/backend-0.0.1-SNAPSHOT.jar
+    envVars:
+      - key: ADMIN_PASSWORD
+        generateValue: true
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+    autoDeploy: true
+    buildFilter:
+      paths:
+        - src/**
+        - pom.xml
+        - .mvn/**
+        - mvnw
+        - mvnw.cmd 
