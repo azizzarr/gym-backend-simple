@@ -18,10 +18,6 @@ echo "Please enter your Railway project name:"
 read project_name
 railway link $project_name
 
-# Build the application
-echo "Building the application..."
-mvn clean package -DskipTests
-
 # Deploy to Railway
 echo "Deploying to Railway..."
 railway up

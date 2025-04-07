@@ -16,9 +16,6 @@ echo Please enter your Railway project name:
 set /p project_name=
 railway link %project_name%
 
-echo Building the application...
-mvn clean package -DskipTests
-
 echo Deploying to Railway...
 railway up
 
