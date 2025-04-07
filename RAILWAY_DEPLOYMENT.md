@@ -7,6 +7,7 @@ This guide will help you deploy your Spring Boot application to Railway.
 - A Railway account (sign up at [railway.app](https://railway.app))
 - Node.js and npm (for the Railway CLI)
 - Git
+- Maven
 
 ## Method 1: Using the Railway CLI
 
@@ -38,9 +39,13 @@ railway link
 
 When prompted, select the project you created in Step 3.
 
-### Step 5: Deploy your application
+### Step 5: Build and Deploy your application
 
 ```bash
+# Build the application
+mvn clean package -DskipTests
+
+# Deploy to Railway
 railway up
 ```
 
@@ -55,7 +60,7 @@ git init
 git add .
 git commit -m "Initial commit"
 git remote add origin <your-github-repo-url>
-git push -u origin master
+git push -u origin main
 ```
 
 ### Step 2: Create a new project in Railway
@@ -73,8 +78,8 @@ git push -u origin master
 2. Click on the service that was created
 3. Go to the "Settings" tab
 4. Configure the following:
-   - Build Command: `./mvnw clean package -DskipTests`
-   - Start Command: `java -jar target/backend-0.0.1-SNAPSHOT.jar`
+   - Build Command: `mvn clean package -DskipTests`
+   - Start Command: `mvn clean package -DskipTests && java -jar target/backend-0.0.1-SNAPSHOT.jar`
    - Add environment variables:
      - ADMIN_PASSWORD: (generate a secure password)
      - SPRING_PROFILES_ACTIVE: prod
@@ -100,6 +105,7 @@ If you encounter any issues during deployment, check the logs in the Railway das
 - Build failures: Check if your application builds locally
 - Start failures: Check if your application starts locally
 - Environment variables: Make sure all required environment variables are set
+- JAR file not found: Make sure the build command is executed before the start command
 
 ## Additional Resources
 
