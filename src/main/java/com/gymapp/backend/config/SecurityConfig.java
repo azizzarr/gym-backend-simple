@@ -24,9 +24,12 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/api/public/**").permitAll()
                 .requestMatchers("/api/admin/**").hasRole("ADMIN")
-                .anyRequest().authenticated()
+                .anyRequest().permitAll()
             )
-            .httpBasic();
+            .httpBasic()
+            .and()
+            .formLogin().disable()
+            .sessionManagement().disable();
 
         return http.build();
     }
