@@ -15,7 +15,7 @@ public class CorsConfig {
         CorsConfiguration config = new CorsConfiguration();
         
         // Allow specific origins
-        config.addAllowedOrigin("http://localhost:3000");
+        config.addAllowedOrigin("http://localhost:4200");
         config.addAllowedOrigin("https://gym-app-c37ed.web.app");
         config.addAllowedOrigin("https://gym-app-c37ed.firebaseapp.com");
         config.addAllowedHeader("*");
