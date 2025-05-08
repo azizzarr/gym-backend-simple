@@ -25,10 +25,10 @@ public class User {
     @Column(unique = true, nullable = false)
     private String email;
 
-    @Column(name = "full_name", nullable = false)
+    @Column(name = "full_name", nullable = true)
     private String fullName;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     @Enumerated(EnumType.STRING)
     private UserRole role;
 
