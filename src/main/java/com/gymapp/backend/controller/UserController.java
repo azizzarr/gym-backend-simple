@@ -45,19 +45,9 @@ public class UserController {
             return ResponseEntity.internalServerError().build();
         }
     }           
-    @PostMapping("/debug")
-    public ResponseEntity<Map<String, String>> debugEndpoint(HttpServletRequest request) {
-        Map<String, String> debugInfo = new HashMap<>();
-        debugInfo.put("method", request.getMethod());
-        debugInfo.put("requestURI", request.getRequestURI());
-        debugInfo.put("contentType", request.getContentType());
-        debugInfo.put("headers", Collections.list(request.getHeaderNames())
-            .stream()
-            .collect(Collectors.toMap(
-                headerName -> headerName,
-                request::getHeader
-            )).toString());
-        
-        return ResponseEntity.ok(debugInfo);
-    }
+    
+    
+    
+    
+    
 } 
