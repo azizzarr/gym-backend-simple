@@ -8,5 +8,5 @@ restartPolicyType = "on_failure"
 restartPolicyMaxRetries = 10
 
 [deploy.env]
-PORT = "8081"
+PORT = "8080"
 JAVA_OPTS = "-Xms512m -Xmx1024m -XX:+UseG1GC -XX:+HeapDumpOnOutOfMemoryError" 
