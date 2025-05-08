@@ -30,7 +30,7 @@ public class FirebaseAuthenticationFilter extends OncePerRequestFilter {
     protected boolean shouldNotFilter(HttpServletRequest request) {
         String path = request.getRequestURI();
         // Skip authentication for these paths
-        return path.equals("/api/users/sync") || 
+        return path.startsWith("/api/") || 
                path.startsWith("/public/") ||
                !path.startsWith("/api/");
     }
