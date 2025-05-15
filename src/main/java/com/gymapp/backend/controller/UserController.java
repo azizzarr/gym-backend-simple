@@ -18,13 +18,17 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/users")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:4200", allowCredentials = "true")
+@CrossOrigin(origins = {"http://localhost:4200", "https://gym-app-c37ed.web.app", "https://gym-app-c37ed.firebaseapp.com", "https://gymapp-backend-staging.up.railway.app"}, allowCredentials = "true")
 public class UserController {
     private final UserService userService;
 
     @PostMapping("/sync")
-    public ResponseEntity<User> syncUser(@RequestBody Map<String, String> payload) {
-        log.info("Received sync request with payload: {}", payload);
+    public ResponseEntity<User> syncUser(@RequestBody Map<String, String> payload, HttpServletRequest request) {
+        log.info("Received sync request with method: {} and payload: {}", request.getMethod(), payload);
+        
+        // Log headers for debugging
+        Collections.list(request.getHeaderNames())
+            .forEach(header -> log.info("Header: {} = {}", header, request.getHeader(header)));
         
         String firebaseUid = payload.get("uid");
         String email = payload.get("email");
