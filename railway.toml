@@ -3,10 +3,15 @@ builder = "nixpacks"
 buildCommand = "mvn clean package -DskipTests"
 
 [deploy]
-startCommand = "java -Dserver.port=$PORT -jar target/backend-0.0.1-SNAPSHOT.jar"
+startCommand = "java -Dserver.port=$PORT -Dspring.profiles.active=prod -jar target/backend-0.0.1-SNAPSHOT.jar"
+restartPolicyType = "on_failure"
+restartPolicyMaxRetries = 10
+healthcheckPath = "/api/public/test"
+healthcheckTimeout = 60
 
 [deploy.env]
-JAVA_OPTS = "-Xms512m -Xmx1024m -XX:+UseG1GC -Dspring.profiles.active=prod"
+PORT = "8080"
+JAVA_OPTS = "-Xms512m -Xmx1024m -XX:+UseG1GC -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/tmp"
 SPRING_DATASOURCE_URL = "jdbc:mysql://switchyard.proxy.rlwy.net:41729/railway?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC"
 SPRING_DATASOURCE_USERNAME = "root"
 SPRING_DATASOURCE_PASSWORD = "MGsAeHEsjYPCtbYDiBNwfQhwDJXQBQyF"
