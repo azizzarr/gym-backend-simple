@@ -3,7 +3,7 @@ builder = "nixpacks"
 buildCommand = "mvn clean package -DskipTests"
 
 [deploy]
-startCommand = "java -Dserver.port=$PORT -Dspring.profiles.active=prod -Dserver.tomcat.connection-timeout=-1 -Dspring.datasource.hikari.connection-timeout=0 -Dspring.datasource.hikari.validation-timeout=0 -Dspring.mvc.async.request-timeout=-1 -jar target/backend-0.0.1-SNAPSHOT.jar"
+startCommand = "java -Dserver.port=$PORT -Dspring.profiles.active=prod -Dserver.tomcat.connection-timeout=-1 -Dspring.datasource.hikari.connection-timeout=0 -Dspring.datasource.hikari.validation-timeout=120000 -Dspring.mvc.async.request-timeout=-1 -jar target/backend-0.0.1-SNAPSHOT.jar"
 restartPolicyType = "never"
 
 
