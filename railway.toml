@@ -3,11 +3,11 @@ builder = "nixpacks"
 buildCommand = "mvn clean package -DskipTests"
 
 [deploy]
-startCommand = "java -Dserver.port=$PORT -Dspring.profiles.active=prod -jar target/backend-0.0.1-SNAPSHOT.jar"
+startCommand = "java -Dserver.port=$PORT -Dspring.profiles.active=prod -Dspring.datasource.hikari.connection-timeout=120000 -Dspring.datasource.hikari.validation-timeout=30000 -jar target/backend-0.0.1-SNAPSHOT.jar"
 restartPolicyType = "on_failure"
 restartPolicyMaxRetries = 10
 healthcheckPath = "/api/public/test"
-healthcheckTimeout = 60
+healthcheckTimeout = 180
 
 [deploy.env]
 PORT = "8080"

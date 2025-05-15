@@ -16,8 +16,11 @@ import lombok.extern.slf4j.Slf4j;
 public class TestController {
 
     @GetMapping("/test")
-    public String test() {
-        return "Backend is working!";
+    public Map<String, String> test() {
+        Map<String, String> response = new HashMap<>();
+        response.put("status", "UP");
+        response.put("message", "Backend is working!");
+        return response;
     }
 
     @GetMapping("/secure-test")
