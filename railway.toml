@@ -3,16 +3,17 @@ builder = "nixpacks"
 buildCommand = "mvn clean package -DskipTests"
 
 [deploy]
-startCommand = "java -Dserver.port=$PORT -Dspring.profiles.active=prod -Dspring.datasource.hikari.connection-timeout=120000 -Dspring.datasource.hikari.validation-timeout=30000 -jar target/backend-0.0.1-SNAPSHOT.jar"
-restartPolicyType = "on_failure"
-restartPolicyMaxRetries = 10
-healthcheckPath = "/api/public/test"
-healthcheckTimeout = 180
+startCommand = "java -Dserver.port=$PORT -Dspring.profiles.active=prod -Dserver.tomcat.connection-timeout=-1 -Dspring.datasource.hikari.connection-timeout=0 -Dspring.datasource.hikari.validation-timeout=0 -Dspring.mvc.async.request-timeout=-1 -jar target/backend-0.0.1-SNAPSHOT.jar"
+restartPolicyType = "never"
+
+
+
+
 
 [deploy.env]
 PORT = "8080"
-JAVA_OPTS = "-Xms512m -Xmx1024m -XX:+UseG1GC -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/tmp"
-SPRING_DATASOURCE_URL = "jdbc:mysql://switchyard.proxy.rlwy.net:41729/railway?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC"
+JAVA_OPTS = "-Xms1024m -Xmx2048m -XX:+UseG1GC -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/tmp -XX:MaxDirectMemorySize=1024m -Dspring.datasource.hikari.connection-timeout=0"
+SPRING_DATASOURCE_URL = "jdbc:mysql://switchyard.proxy.rlwy.net:41729/railway?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&connectTimeout=0&socketTimeout=0"
 SPRING_DATASOURCE_USERNAME = "root"
 SPRING_DATASOURCE_PASSWORD = "MGsAeHEsjYPCtbYDiBNwfQhwDJXQBQyF"
 SPRING_JPA_HIBERNATE_DDL_AUTO = "update"
