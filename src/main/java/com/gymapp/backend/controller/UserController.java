@@ -18,13 +18,15 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/users")
 @RequiredArgsConstructor
-@CrossOrigin(origins = {"http://localhost:4200", "https://gym-app-c37ed.web.app", "https://gym-app-c37ed.firebaseapp.com", "https://gymapp-backend-staging.up.railway.app"}, allowCredentials = "true")
+@CrossOrigin(origins = {"http://localhost:4200", "https://gym-app-c37ed.web.app", "https://gym-app-c37ed.firebaseapp.com", 
+    "https://gymapp-backend-staging.up.railway.app", "https://gymapp-backend-production-ef30.up.railway.app"}, 
+    allowCredentials = "true")
 public class UserController {
     private final UserService userService;
 
     @PostMapping("/sync")
     public ResponseEntity<User> syncUser(@RequestBody Map<String, String> payload, HttpServletRequest request) {
-        log.info("Received sync request with method: {} and payload: {}", request.getMethod(), payload);
+        log.info("Received sync POST request with method: {} and payload: {}", request.getMethod(), payload);
         
         // Log headers for debugging
         Collections.list(request.getHeaderNames())
@@ -48,10 +50,23 @@ public class UserController {
             log.error("Error synchronizing user: {}", e.getMessage(), e);
             return ResponseEntity.internalServerError().build();
         }
+    }
+    
+    @GetMapping("/sync")
+    public ResponseEntity<?> getSyncStatus(HttpServletRequest request) {
+        log.info("Received sync GET request from: {}", request.getRemoteAddr());
+        
+        try {
+            Map<String, Object> response = new HashMap<>();
+            response.put("status", "success");
+            response.put("message", "Sync endpoint is available. Please use POST method with required fields.");
+            response.put("requiredFields", new String[]{"uid", "email"});
+            response.put("optionalFields", new String[]{"fullName", "avatarUrl"});
+            
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            log.error("Error handling GET sync request: {}", e.getMessage(), e);
+            return ResponseEntity.internalServerError().build();
+        }
     }           
-    
-    
-    
-    
-    
 } 
