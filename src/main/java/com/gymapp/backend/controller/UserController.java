@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -48,10 +49,31 @@ public class UserController {
             log.error("Error synchronizing user: {}", e.getMessage(), e);
             return ResponseEntity.internalServerError().build();
         }
-    }           
-    
-    
-    
-    
-    
+    }
+
+    @GetMapping("/firebase/{firebaseUid}")
+    public ResponseEntity<User> getUserByFirebaseUid(@PathVariable String firebaseUid) {
+        log.info("Received request to get user with Firebase UID: {}", firebaseUid);
+        try {
+            User user = userService.getUserByFirebaseUid(firebaseUid);
+            log.info("User found: {}", user);
+            return ResponseEntity.ok(user);
+        } catch (RuntimeException e) {
+            log.error("Error fetching user: {}", e.getMessage());
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<User> getUserById(@PathVariable UUID id) {
+        log.info("Received request to get user with ID: {}", id);
+        try {
+            User user = userService.getUserById(id);
+            log.info("User found: {}", user);
+            return ResponseEntity.ok(user);
+        } catch (RuntimeException e) {
+            log.error("Error fetching user: {}", e.getMessage());
+            return ResponseEntity.notFound().build();
+        }
+    }
 } 

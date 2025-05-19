@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Slf4j
 @Service
@@ -36,5 +37,25 @@ public class UserService {
         user.setUpdatedAt(LocalDateTime.now());
 
         return userRepository.save(user);
+    }
+
+    @Transactional(readOnly = true)
+    public User getUserById(UUID id) {
+        log.info("Fetching user with ID: {}", id);
+        return userRepository.findById(id)
+                .orElseThrow(() -> {
+                    log.error("User not found with ID: {}", id);
+                    return new RuntimeException("User not found with ID: " + id);
+                });
+    }
+
+    @Transactional(readOnly = true)
+    public User getUserByFirebaseUid(String firebaseUid) {
+        log.info("Fetching user with Firebase UID: {}", firebaseUid);
+        return userRepository.findByFirebaseUid(firebaseUid)
+                .orElseThrow(() -> {
+                    log.error("User not found with Firebase UID: {}", firebaseUid);
+                    return new RuntimeException("User not found with Firebase UID: " + firebaseUid);
+                });
     }
 } 
