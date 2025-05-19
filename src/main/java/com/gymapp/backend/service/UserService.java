@@ -18,34 +18,23 @@ public class UserService {
 
     @Transactional
     public User createOrUpdateUser(String firebaseUid, String email, String fullName, String avatarUrl) {
-        log.debug("Creating or updating user with firebaseUid: {}, email: {}", firebaseUid, email);
-        
-        try {
-            User user = userRepository.findByFirebaseUid(firebaseUid)
-                    .orElseGet(() -> {
-                        log.info("Creating new user with email: {}", email);
-                        return User.builder()
-                                .firebaseUid(firebaseUid)
-                                .email(email)
-                                .fullName(fullName)
-                                .avatarUrl(avatarUrl)
-                                .role(UserRole.CLIENT)
-                                .createdAt(LocalDateTime.now())
-                                .updatedAt(LocalDateTime.now())
-                                .build();
-                    });
+        User user = userRepository.findByFirebaseUid(firebaseUid)
+                .orElseGet(() -> User.builder()
+                        .firebaseUid(firebaseUid)
+                        .email(email)
+                        .fullName(fullName)
+                        .avatarUrl(avatarUrl)
+                        .role(UserRole.CLIENT)
+                        .createdAt(LocalDateTime.now())
+                        .updatedAt(LocalDateTime.now())
+                        .build());
 
-            // Update user details if they exist
-            user.setEmail(email);
-            user.setFullName(fullName);
-            user.setAvatarUrl(avatarUrl);
-            user.setUpdatedAt(LocalDateTime.now());
-            
-            log.debug("Saving user with email: {}", email);
-            return userRepository.save(user);
-        } catch (Exception e) {
-            log.error("Error creating or updating user: {}", e.getMessage(), e);
-            throw new RuntimeException("Failed to create or update user: " + e.getMessage(), e);
-        }
+        // Update user details if they exist
+        user.setEmail(email);
+        user.setFullName(fullName);
+        user.setAvatarUrl(avatarUrl);
+        user.setUpdatedAt(LocalDateTime.now());
+
+        return userRepository.save(user);
     }
 } 

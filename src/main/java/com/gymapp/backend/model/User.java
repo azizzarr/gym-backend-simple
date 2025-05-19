@@ -13,27 +13,26 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "users")
+@Table(name = "users", schema = "public")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(columnDefinition = "VARCHAR(36)")
     private UUID id;
 
-    @Column(name = "firebase_uid", unique = true, length = 128)
+    @Column(name = "firebase_uid", unique = true)
     private String firebaseUid;
 
-    @Column(unique = true, nullable = false, length = 255)
+    @Column(unique = true, nullable = false)
     private String email;
 
-    @Column(name = "full_name", nullable = true, length = 255)
+    @Column(name = "full_name", nullable = true)
     private String fullName;
 
-    @Column(nullable = true, length = 20)
+    @Column(nullable = true)
     @Enumerated(EnumType.STRING)
     private UserRole role;
 
-    @Column(name = "avatar_url", length = 1024)
+    @Column(name = "avatar_url")
     private String avatarUrl;
 
     @Column(name = "created_at", nullable = false, updatable = false)
@@ -44,9 +43,6 @@ public class User {
 
     @PrePersist
     protected void onCreate() {
-        if (id == null) {
-            id = UUID.randomUUID();
-        }
         createdAt = LocalDateTime.now();
         updatedAt = LocalDateTime.now();
     }
