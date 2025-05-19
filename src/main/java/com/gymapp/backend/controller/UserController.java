@@ -52,21 +52,8 @@ public class UserController {
         }
     }
     
-    @GetMapping("/sync")
-    public ResponseEntity<?> getSyncStatus(HttpServletRequest request) {
-        log.info("Received sync GET request from: {}", request.getRemoteAddr());
-        
-        try {
-            Map<String, Object> response = new HashMap<>();
-            response.put("status", "success");
-            response.put("message", "Sync endpoint is available. Please use POST method with required fields.");
-            response.put("requiredFields", new String[]{"uid", "email"});
-            response.put("optionalFields", new String[]{"fullName", "avatarUrl"});
-            
-            return ResponseEntity.ok(response);
-        } catch (Exception e) {
-            log.error("Error handling GET sync request: {}", e.getMessage(), e);
-            return ResponseEntity.internalServerError().build();
-        }
-    }           
+    
+    
+    
+    
 } 
