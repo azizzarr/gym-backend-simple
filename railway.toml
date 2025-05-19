@@ -3,27 +3,9 @@ builder = "nixpacks"
 buildCommand = "mvn clean package -DskipTests"
 
 [deploy]
-startCommand = "java -Dserver.port=$PORT -Dspring.profiles.active=dev -Dserver.tomcat.connection-timeout=-1 -Dspring.datasource.hikari.connection-timeout=0 -Dspring.datasource.hikari.validation-timeout=120000 -Dspring.mvc.async.request-timeout=-1 -jar target/backend-0.0.1-SNAPSHOT.jar"
-restartPolicyType = "never"
-
-
-
-
+startCommand = "java -Dserver.port=$PORT -Xmx1024m -XX:+HeapDumpOnOutOfMemoryError -jar target/backend-0.0.1-SNAPSHOT.jar"
+restartPolicyType = "on-failure"
 
 [deploy.env]
 PORT = "8080"
-JAVA_OPTS = "-Xms1024m -Xmx2048m -XX:+UseG1GC -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/tmp -XX:MaxDirectMemorySize=1024m -Dspring.datasource.hikari.connection-timeout=0"
-SPRING_DATASOURCE_URL = "jdbc:mysql://switchyard.proxy.rlwy.net:41729/railway?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&connectTimeout=0&socketTimeout=0"
-SPRING_DATASOURCE_USERNAME = "root"
-SPRING_DATASOURCE_PASSWORD = "MGsAeHEsjYPCtbYDiBNwfQhwDJXQBQyF"
-SPRING_JPA_HIBERNATE_DDL_AUTO = "update"
-SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT = "org.hibernate.dialect.MySQLDialect"
-
-
-
-
-
-
-
-
-
+JAVA_OPTS = "-Xms512m -Xmx1024m -XX:+UseG1GC"
