@@ -1,5 +1,6 @@
 package com.gymapp.backend.controller;
 
+import com.gymapp.backend.dto.UserProfileDTO;
 import com.gymapp.backend.model.User;
 import com.gymapp.backend.service.UserService;
 
@@ -74,6 +75,18 @@ public class UserController {
         } catch (RuntimeException e) {
             log.error("Error fetching user: {}", e.getMessage());
             return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("/profile/{firebaseUid}")
+    public ResponseEntity<UserProfileDTO> getUserProfile(@PathVariable String firebaseUid) {
+        log.info("Received request to get complete profile for user: {}", firebaseUid);
+        try {
+            UserProfileDTO userProfile = userService.getUserProfile(firebaseUid);
+            return ResponseEntity.ok(userProfile);
+        } catch (Exception e) {
+            log.error("Error fetching user profile: {}", e.getMessage());
+            return ResponseEntity.badRequest().build();
         }
     }
 } 
