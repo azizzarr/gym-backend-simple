@@ -3,25 +3,27 @@ package com.gymapp.backend.service;
 import com.gymapp.backend.dto.UserProfileDTO;
 import com.gymapp.backend.model.User;
 import com.gymapp.backend.model.UserRole;
-import com.gymapp.backend.model.WeightProgress;
 import com.gymapp.backend.model.Workout;
+import com.gymapp.backend.model.WeightProgress;
 import com.gymapp.backend.repository.UserRepository;
+import com.gymapp.backend.repository.WorkoutRepository;
+import com.gymapp.backend.repository.WeightProgressRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.UUID;
+import java.util.List;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
-    private final WorkoutService workoutService;
-    private final WeightProgressService weightProgressService;
+    private final WorkoutRepository workoutRepository;
+    private final WeightProgressRepository weightProgressRepository;
 
     @Transactional
     public User createOrUpdateUser(String firebaseUid, String email, String fullName, String avatarUrl) {
@@ -72,14 +74,17 @@ public class UserService {
         User user = userRepository.findByFirebaseUid(firebaseUid)
                 .orElseThrow(() -> new RuntimeException("User not found with Firebase UID: " + firebaseUid));
         
-        List<Workout> workouts = workoutService.getUserWorkouts(firebaseUid);
-        List<WeightProgress> weightProgress = weightProgressService.getUserWeightHistory(firebaseUid);
+        List<Workout> workouts = workoutRepository.findByUserOrderByWorkoutDateDesc(user);
+        List<WeightProgress> weightProgress = weightProgressRepository.findByUserOrderByMeasurementDateDesc(user);
         
         return UserProfileDTO.builder()
                 .firebaseUid(user.getFirebaseUid())
                 .email(user.getEmail())
                 .fullName(user.getFullName())
                 .role(user.getRole())
+                .avatarUrl(user.getAvatarUrl())
+                .createdAt(user.getCreatedAt())
+                .updatedAt(user.getUpdatedAt())
                 .workouts(workouts)
                 .weightProgress(weightProgress)
                 .build();
