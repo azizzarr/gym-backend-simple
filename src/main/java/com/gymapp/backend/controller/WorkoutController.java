@@ -86,4 +86,21 @@ public class WorkoutController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    /**
+     * Retrieves all prebuilt workouts
+     * 
+     * @return A list of all prebuilt workouts
+     */
+    @GetMapping("/prebuilt")
+    public ResponseEntity<List<Workout>> getPrebuiltWorkouts() {
+        log.info("Received request to get prebuilt workouts");
+        try {
+            List<Workout> workouts = workoutService.getPrebuiltWorkouts();
+            return ResponseEntity.ok(workouts);
+        } catch (RuntimeException e) {
+            log.error("Error fetching prebuilt workouts: {}", e.getMessage());
+            return ResponseEntity.badRequest().build();
+        }
+    }
 } 

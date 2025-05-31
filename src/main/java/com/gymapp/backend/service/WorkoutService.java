@@ -77,4 +77,15 @@ public class WorkoutService {
         }
         workoutRepository.deleteById(workoutId);
     }
+
+    /**
+     * Retrieves all prebuilt workouts
+     * 
+     * @return A list of all prebuilt workouts
+     */
+    @Transactional(readOnly = true)
+    public List<Workout> getPrebuiltWorkouts() {
+        log.info("Fetching all prebuilt workouts");
+        return workoutRepository.findByPrebuiltTrue();
+    }
 } 

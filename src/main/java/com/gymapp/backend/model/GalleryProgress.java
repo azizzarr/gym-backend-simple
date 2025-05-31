@@ -14,8 +14,8 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "workouts")
-public class Workout {
+@Table(name = "gallery_progress")
+public class GalleryProgress {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
@@ -24,26 +24,20 @@ public class Workout {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @Column(name = "workout_date", nullable = false)
-    private LocalDateTime workoutDate;
+    @Column(name = "weight_kg", nullable = false)
+    private Double weightKg;
 
-    @Column(name = "workout_type", nullable = false)
-    private String workoutType;
+    @Column(name = "bmi", nullable = false)
+    private Double bmi;
 
-    @Column(name = "duration_minutes", nullable = false)
-    private Integer durationMinutes;
+    @Column(name = "photo_path", nullable = false)
+    private String photoPath;
 
-    @Column(name = "exercises", columnDefinition = "TEXT")
-    private String exercises; // JSON string of exercises
+    @Column(name = "photo_date", nullable = false)
+    private LocalDateTime photoDate;
 
     @Column(name = "notes", columnDefinition = "TEXT")
     private String notes;
-
-    @Column(name = "calories_burnt")
-    private Integer caloriesBurnt;
-
-    @Column(name = "prebuilt")
-    private Boolean prebuilt;
 
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
