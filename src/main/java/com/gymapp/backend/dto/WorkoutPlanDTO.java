@@ -13,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 public class WorkoutPlanDTO {
     private List<WorkoutDayDTO> weeklySchedule;
-    private String progressionPlan;
+    private String progressionPlan;  // Simple progression plan
     private String safetyPrecautions;
     
     @Data
@@ -26,7 +26,7 @@ public class WorkoutPlanDTO {
         private Integer durationMinutes;
         private List<ExerciseDTO> exercises;
         private Integer caloriesBurnt;
-        private String notes;
+        private String notes;  // Simple workout notes
     }
     
     @Data
@@ -38,6 +38,6 @@ public class WorkoutPlanDTO {
         private Integer sets;
         private Integer reps;
         private Integer restSeconds;
-        private String notes;
+        private String notes;  // Simple exercise notes
     }
 } 
