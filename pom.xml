@@ -118,8 +118,8 @@
                     <source>${java.version}</source>
                     <target>${java.version}</target>
                     <fork>true</fork>
-                    <meminitial>1024m</meminitial>
-                    <maxmem>2048m</maxmem>
+                    <meminitial>512m</meminitial>
+                    <maxmem>1024m</maxmem>
                 </configuration>
             </plugin>
         </plugins>
