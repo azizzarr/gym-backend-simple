@@ -24,7 +24,7 @@ public class Coach {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String specialization;
 
     @Column(name = "experience_years", nullable = false)

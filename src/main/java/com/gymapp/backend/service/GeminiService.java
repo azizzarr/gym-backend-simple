@@ -140,7 +140,7 @@ public class GeminiService {
         prompt.append("   - Estimated calories burned (based on client's weight and workout intensity)\n");
         prompt.append("   - Notes on workout focus and purpose\n");
         prompt.append("3. Include a 4-week progression plan that gradually increases intensity\n");
-        prompt.append("4. Provide specific safety precautions based on the client's health conditions\n");
+        prompt.append("4. Provide general safety precautions based on the client's health conditions and keep it short and concise\n");
         prompt.append("5. Ensure exercises are appropriate for the client's available equipment\n");
         prompt.append("6. Consider the client's age, fitness level, and any health conditions when designing exercises\n");
         prompt.append("7. Include a mix of compound and isolation exercises for balanced development\n");
@@ -316,11 +316,11 @@ public class GeminiService {
         
         // Add final instructions
         prompt.append("\nIMPORTANT INSTRUCTIONS:\n");
-        prompt.append("1. Be specific and detailed in your exercise descriptions\n");
+        prompt.append("1. Don't be specific and detailed in your exercise descriptions\n");
         prompt.append("2. Use standard, widely recognized exercise names\n");
         prompt.append("3. Provide realistic sets, reps, and rest periods\n");
         prompt.append("4. IMPORTANT: The 'reps' field must be a single integer value, not a range (e.g., use 10 instead of 8-12)\n");
-        prompt.append("5. Include proper form instructions for each exercise\n");
+        prompt.append("5. Include proper form instructions for each exercise but keep it short and concise\n");
         prompt.append("6. Consider the client's fitness level, goals, and limitations\n");
         prompt.append("7. Ensure the workout plan is safe and appropriate for the client\n");
         prompt.append("8. Format the response as a valid JSON object\n");
